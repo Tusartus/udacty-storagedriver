@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title> Dupe Storage driver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Password management</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Driver cloud</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Note Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<div class="jumbotron">
+
+
+    <h1> SuperDuperDrive Cloud Storage</h1>
+
+    <p> Simple File Storage,
+        Note Management  ,
+        Password   Management
+
+
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <section class="col-md-8 offset-md-3">
+
+<form th:object="${noteForm}" action="#" th:action="@{/note}" method="POST" >
+    <div class="form-group">
+        <label for="noteText">Enter note desscription:</label>
+        <input type="text" class="form-control" th:field="*{noteText}" placeholder="Enter course:Maths,..." id="noteText">
+    </div>
+    <div class="form-group">
+        <label for="notePoint">note point:</label>
+        <input type="number" class="form-control" steps="00.00" th:field="*{notePoint}" id="notePoint">
+    </div>
+
+    <div class="form-group">
+        <label for="noteType">SELECT TYPE NOTE:</label>
+        <select class="form-control"  th:field="*{noteType}" id="noteType">
+            <option
+                    th:each="type : ${allNoteTypes}"
+                    th:value="${type}"
+                    th:text="${type}"
+            >Good
+
+            </option>
+
+
+
+        </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+        </section>
+
+
+
+</div>
+</div>
+
+
+<div class="container">
+    <section class="row">
+        <article class="col-md-12 m-5 p-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>noteID</th>
+                    <th>Note text</th>
+                    <th>action</th>
+                </tr>
+                </thead>
+                <tbody  th:each="note : ${notes}">
+                <tr>
+                    <td th:text="${note.noteId}"> </td>
+                    <td th:text="${note.notePoint}"> </td>
+                    <td th:text="${note.noteText}"></td>
+                    <td>
+                        <a class="linkedit btn btn-success mb-3" id="edit" >Edit</a>
+
+
+
+                        <form action="#" th:action="@{'/note/delete/{noteId}'(noteId=${note.noteId})}" th:method="delete" >
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" id="submitButton" class="btn btn-danger">delete </button>
+                        </form>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+        </article>
+    </section>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
